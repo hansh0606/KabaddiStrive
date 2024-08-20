@@ -1,0 +1,176 @@
+-----DATA CREATION-----
+--Court
+CREATE TABLE Court (
+court_no varchar(5) primary key not null, Location varchar(20) not null
+);
+
+--Team
+CREATE TABLE Team (
+T_id varchar(15) primary key not null, T_name varchar(30) not null,
+T_rank numeric(3),Total_matches numeric(3), Total_won numeric(3)
+);
+
+--Match
+CREATE TABLE Match (
+M_no varchar(15) primary key not null , M_date date not null, M_time time not null, T1_id varchar(30) references Team(T_id) , T2_id varchar(30) references Team(T_id),
+court_no varchar(5) references Court(court_no) not null, Winner_id varchar(30),
+Won_by numeric(3)
+);
+
+--Player
+CREATE TABLE Player (
+P_id varchar(15) primary key not null, P_name varchar(30) not null,
+P_type varchar(15), Success_rate numeric(5),
+T_id varchar(5) references Team(T_id), P_status varchar(15) , P_availability varchar(15));
+ 
+--Raider
+CREATE TABLE Raider (
+P_id varchar(15) primary key not null, R_point numeric(3) not null
+);
+
+--Defender
+CREATE TABLE Defender (
+P_id varchar(15) primary key not null, D_point numeric(3) not null
+);
+
+--All Rounder
+CREATE TABLE AllRounder (
+P_id varchar(15) primary key not null, D_point numeric(3) not null
+);
+
+--Coach
+CREATE TABLE Coach (
+c_id varchar(15) primary key not null, c_name varchar(30) not null , c_experience numeric(3),
+T_id varchar(5) references Team(T_id)
+);
+
+--Injury
+CREATE TABLE Injury (
+I_id varchar(15) primary key not null, I_date date not null,
+P_id varchar(15) references Player(P_id)
+);
+ 
+-----DATA INSERTION-----
+
+--Court
+INSERT INTO Court (court_no,Location)
+VALUES ('Cr_01','SVP Stadium Mumbai'),('Cr_02','SVP Stadium Mumbai');
+
+
+--Team
+INSERT INTO team( t_id , t_name , t_rank , total_matches , total_won) VALUES('t01','Jaipur Pink Panthers','1','3','3'),
+('t02','Bengaluru Bulls','4','1','0'),
+('t03','Puneri Paltan','2','2','1'),
+('t04','Tamil Thalaivas','3','2','1'),
+('t05','U.P.Yoddhas','5','1','0'),
+('t06','Dabang Delhi K.C.','6','1','0');
+
+
+--Match
+INSERT INTO match( m_no , m_date , m_time , t1_id , t2_id , court_no , winner_id , won_by)
+VALUES('M01','01-12-2022','19:00','t01','t02','Cr_01','t01','10'),
+('M02','02-12-2022','19:00','t03','t05','Cr_02','t03','3'),
+('M03','03-12-2022','19:00','t04','t06','Cr_01','t04','5'),
+('M04','04-12-2022','19:00','t01','t03','Cr_02','t01','2'),
+('M05','05-12-2022','19:00','t01','t04','Cr_01','t01','7');
+
+
+--Player
+INSERT INTO player ( p_id , p_name , p_type , success_rate , t_id, P_status, P_availability)
+VALUES('p01','Arjun Deshwal','Raider','33','t01','Not Injured','Available'),
+('p02','Sunil Kumar','Defender','33','t01','Not Injured','Available'),
+('p03','Abhshek KS','Defender','27','t01','Not Injured','Available'),
+('p04','Reza Mirbagheri','Defender','13','t01','Not Injured','Available'),
+('p05','V Ajith','Raider','45','t01','Not Injured','Available'),
+('p06','Sahul Kumar','Defender','21','t01','Not Injured','Available'),
+('p07','Ankush','Defender','32','t01','Not Injured','Available'),
+('p08','Vikash Kandola','Raider','46','t02','Not Injured','Available'),
+('p09','Harmanjit Singh','Raider','12','t02','Not Injured','Available'),
+('p10','Mahender Singh','Defender','24','t02','Not Injured','Available'),
+('p11','Bharat','Raider','48','t02','Not Injured','Available'),
+('p12','Neeraj Narwal','Raider','14','t02','Not Injured','Available'),
+('p13','Saurabh Nandal','Defender','26','t02','Not Injured','Available'),
+('p14','Aman','Defender','17','t02','Not Injured','Available'),
+('p15','Akash Shinde','Raider','28','t03','Not Injured','Available'),
+('p16','Abhinesh Nadarajan','Defender','13','t03','Not Injured','Available'),
+('p17','Sanket Sawant','Defender','09','t03','Not Injured','Available'),
+('p18','Pankaj Mohite','Raider','53','t03','Not Injured','Available'), ('p19','Mohammad Nabibakhsh','All_rounder','43','t03','Not Injured','Available'), ('p20','Gaurav Khatri','Defender','17','t03','Not Injured','Available'),
+('p21','Faisal Atrachali','Defender','47','t03','Not Injured','Available'),
+('p22','Narendra','Raider','34','t04','Not Injured','Available'),
+('p23','M Abhishek','Defender','13','t04','Not Injured','Available'),
+('p24','Mohit','Defender','10','t04','Not Injured','Available'),
+('p25','Himanshu','Defender','09','t04','Not Injured','Available'),
+('p26','Ajinkya Pawar','Raider','36','t04','Not Injured','Available'),
+('p27','Arpit Saroha','Defender','23','t04','Not Injured','Available'),('p28','Sahil Gulia','Defender','19','t04','Not Injured','Available'),
+('p29','Pardeep Narwal','Raider','72','t05','Not Injured','Available'),
+('p30','Ashu Singh','Defender','13','t05','Not Injured','Available'),
+('p31','Gurdeep','All_rounder','33','t05','Not Injured','Available'),
+('p32','Sandeep Narwal','All_rounder','23','t05','Not Injured','Available'),
+('p33','Surendra Gill','Raider','34','t05','Not Injured','Available'),
+('p34','Nitesh Kumar','Defender','13','t05','Not Injured','Available'),
+('p35','Summit','Defender','23','t05','Not Injured','Available'),
+('p36','Naveen Kumar','Raider','38','t06','Not Injured','Available'),
+('p37','Dipak','Defender','12','t06','Not Injured','Available'),
+('p38','Vishal','Defender','09','t06','Not Injured','Available'),
+('p39','Ashu Malik','Raider','11','t06','Not Injured','Available'),
+('p40','Vijay Malik','All_rounder','39','t06','Not Injured','Available'),
+('p41','Amit Hooda','Defender','09','t06','Not Injured','Available'),
+('p42','Sandeep Dhull','Defender','19','t06','Not Injured','Available');
+ 
+
+--Raider
+INSERT INTO raider(p_id , r_point) VALUES('p01','48'),
+('p05','26'),
+('p08','38'),
+('p09','39'),
+('p11','32'),
+('p12','44'),
+('p15','32'),
+('p18','28'),
+('p22','37'),
+('p26','34'),
+('p29','42'),
+('p33','40'),
+('p36','49'),
+('p39','33');
+
+
+--Defender
+INSERT INTO defender(p_id , d_point) VALUES('p02','34'), ('p03','37'),
+('p04','12'),
+('p06','38'),
+('p07','26'),
+('p10','24'),
+('p13','19'),
+('p14','20'),
+('p16','21'),
+('p17','34'),
+('p20','23'),
+('p21','33'),
+('p23','36'),
+('p24','17'),
+('p25','29'),
+('p27','34'),
+('p28','22'),
+('p30','26'),
+('p34','27'),
+('p35','30'),
+('p37','31'),
+('p38','34'),
+('p41','35'),
+('p42','16');
+
+
+--All Rounder
+INSERT INTO allrounder(p_id , r_point , d_point) VALUES('p19','34','12'), ('p31','37','13'),
+('p32','12','26'),
+('p40','38','16');
+
+
+--Coach
+INSERT INTO coach(c_id , c_name , c_experience , t_id) VALUES('c01','Sanjiv Baliyan','12','t01'),
+('c02','Randhir Singh Sehrawat','09','t02'),
+('c03','BC Ramesh','8','t03'),
+('c04','J Udaya Kumar','10','t04'),
+('c05','Jasveer Singh','15','t05'),
+('c06','Krishan Kumar Hooda','13','t06');
