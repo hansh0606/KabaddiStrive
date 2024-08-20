@@ -1,4 +1,4 @@
-# KabaddiStriver - Simple Kabaddi League Database System
+# KabaddiStrive - Simple Kabaddi League Database System
 
 KabaddiStriver is a PostgreSQL-based project designed to manage a basic Kabaddi league database system. The project includes table creation, data insertion, DBMS queries, cursors, functions, and a few triggers.
 
